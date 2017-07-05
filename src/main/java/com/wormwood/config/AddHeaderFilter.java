@@ -17,10 +17,13 @@ import java.util.Map;
 public class AddHeaderFilter implements Filter {
     private final Logger log = LoggerFactory.getLogger(AddHeaderFilter.class);
 
+    private Map urlMaps;
+
     private TokenService tokenService;
 
-    public AddHeaderFilter(TokenService tokenService){
-        this.tokenService=tokenService;
+    public AddHeaderFilter(TokenService tokenService, Map map) {
+        this.tokenService = tokenService;
+        this.urlMaps = map;
     }
 
     @Override
@@ -33,30 +36,36 @@ public class AddHeaderFilter implements Filter {
         String projName = request.getParameter("project");
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.sendRedirect(getProjectUrl(projName));
-
-
     }
 
-    private String getProjectUrl(String projName) {
+    private String getProjectUrl(String projectName) {
         Map<String, Object> map = Maps.newHashMap();
-        map.put(TokenUtil.CLAIM_KEY_SYSTEM, projName);
+        map.put(TokenUtil.CLAIM_KEY_SYSTEM, projectName);
         map.put(TokenUtil.CLAIM_KEY_CREATED, new Date());
         String token = TokenUtil.generateToken(map);
         String ipAddress = "";
-        if ("pf".equalsIgnoreCase(projName)) ipAddress = "http://139.196.39.16:7002/pf/?ww_token=" + token;
-        if ("gf".equalsIgnoreCase(projName)) ipAddress = "http://139.196.39.16:7002/gf/?ww_token=" + token;
-        if ("hotwork".equalsIgnoreCase(projName)) ipAddress = "http://139.196.39.16:7003/hotwork/outEntry?ww_token=" + token;
-        if(StringUtils.isNotBlank(ipAddress)){
-            tokenService.updateOrInsert(token,projName);
-            return ipAddress;
-        }else{
+        Map urlMaps = this.getUrlMaps();
+        if (urlMaps.containsKey(projectName)) {
+            ipAddress = (String) urlMaps.get(projectName) + "?ww_token=" + token;
+        } else {
             return "error";
         }
+        tokenService.updateOrInsert(token, projectName);
+        return ipAddress;
+
     }
 
 
     @Override
     public void destroy() {
 
+    }
+
+    public Map getUrlMaps() {
+        return urlMaps;
+    }
+
+    public void setUrlMaps(Map urlMaps) {
+        this.urlMaps = urlMaps;
     }
 }

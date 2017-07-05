@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/css/**","/images/**","/js/**","/vendors/**","/test/**").permitAll()
+                    .antMatchers("/css/**","/images/**","/js/**","/AUTH/**","/test/**","/auth/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .csrf().disable()
@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll().logoutUrl("/logout").logoutSuccessUrl("/login")
 //                    .logoutSuccessHandler(logoutSuccessHandler)
 //                    .invalidateHttpSession(true).addLogoutHandler(logoutHandler)
-                    .deleteCookies(new String[] { "cookie名字" })
+                    .deleteCookies(new String[] {""})
                     .and()
                 .rememberMe();
     }

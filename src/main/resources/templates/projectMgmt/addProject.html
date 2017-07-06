@@ -32,7 +32,7 @@
                 data: JSON.stringify(formToJson($("#addProject-form"))),
                 success: function (data) {
                     if (!data.success) {
-                        alert(data.msg);
+                        alert(data.data);
                     } else {
                         $("#btnsubmit").attr('disabled', 'disabled');
                         alert("add success");
@@ -187,9 +187,9 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="projectType" name="projectType" class="form-control"
                                                 required="required">
-                                            <option value="">Choose..</option>
+                                            <option value="">Please Select..</option>
+                                            <option value="m">MPA Project</option>
                                             <option value="w">Wormwood Project</option>
-                                            <option value="m">Mpa Project</option>
                                             <option value="o">Other Project</option>
                                         </select>
                                     </div>

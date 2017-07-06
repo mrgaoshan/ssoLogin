@@ -1,5 +1,6 @@
 package com.wormwood.DTO;
 
+import org.hibernate.validator.constraints.NotBlank;
 import tk.mybatis.mapper.annotation.NameStyle;
 import tk.mybatis.mapper.code.Style;
 
@@ -13,9 +14,12 @@ import java.util.Date;
 public class Project implements Serializable {
     private static final long serialVersionUID = -9150193155401406256L;
     private String projectId;
+    @NotBlank
     private String projectName;
+    @NotBlank
     private String projectLink;
     private String description;
+    @NotBlank
     private String projectType;
     private String crtBy;
     private Date crtOn;

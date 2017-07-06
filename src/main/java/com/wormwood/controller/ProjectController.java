@@ -31,7 +31,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Response> addProject(@RequestBody Project project) {
+    public ResponseEntity<Response> addProject(@RequestBody @Valid Project project) {
         project.setCrtBy("admin");
         project.setCrtOn(new Date());
         projectService.insertProject(project);

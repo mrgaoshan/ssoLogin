@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-   com.wormwood.config.RedirectFilterConfig
+   com.wormwood.config.autoconfigure.WebAutoConfiguration,\
+   com.wormwood.config.autoconfigure.WebErrorAutoConfiguration

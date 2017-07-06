@@ -42,8 +42,8 @@ public enum ResultEnum {
                         METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, false, 5002, "不支持的方法调用"),
                         UNSUPPORTED_MEDIA_TYPE(HttpStatus.UNSUPPORTED_MEDIA_TYPE, false, 5003, "不支持的HTTP MEDIA类型"),
                         RATE_LIMIT_EXCEEDED(HttpStatus.BANDWIDTH_LIMIT_EXCEEDED, false, 5004, "调用太频繁，超过限制"),
-                        FAIL(HttpStatus.OK, false, 6000, "失败");
-
+    FAIL(HttpStatus.OK, false, 6000, "失败"),
+    PARAMS_NOT_VALID(HttpStatus.OK, false, 6009, "请求参数错误");
 
     /** 成功标识 */
     private boolean    success;

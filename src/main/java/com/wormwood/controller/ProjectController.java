@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kasimodo on 2017-07-06.
@@ -28,6 +29,11 @@ public class ProjectController {
         return "projectMgmt/addProject";
     }
 
+    @RequestMapping("/toProjectList")
+    public String toProjectList() {
+        return "projectMgmt/projectList";
+    }
+
 
     @RequestMapping(value = "/addProject", method = RequestMethod.POST)
     @ResponseBody
@@ -35,6 +41,22 @@ public class ProjectController {
         project.setCrtBy("admin");
         project.setCrtOn(new Date());
         projectService.insertProject(project);
+        return new Response(ResultEnum.SUCCESS).build();
+    }
+
+    @RequestMapping(value = "/getAllProjectList", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Response<List<Project>>> getAllProjectList() {
+
+        List<Project> allProject = projectService.getAllProject();
+        return new Response(allProject, ResultEnum.SUCCESS).build();
+    }
+
+
+    @RequestMapping(value = "/removeProject/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public ResponseEntity<Response> removeProject(@PathVariable("id") Integer id) {
+        projectService.deleteProject(id);
         return new Response(ResultEnum.SUCCESS).build();
     }
 

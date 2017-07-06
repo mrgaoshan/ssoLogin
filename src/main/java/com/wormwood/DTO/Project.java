@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import tk.mybatis.mapper.annotation.NameStyle;
 import tk.mybatis.mapper.code.Style;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +14,8 @@ import java.util.Date;
 @NameStyle(value = Style.camelhumpAndUppercase)
 public class Project implements Serializable {
     private static final long serialVersionUID = -9150193155401406256L;
-    private String projectId;
+    @Id
+    private Integer projectId;
     @NotBlank
     private String projectName;
     @NotBlank
@@ -24,11 +26,11 @@ public class Project implements Serializable {
     private String crtBy;
     private Date crtOn;
 
-    public String getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 

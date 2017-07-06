@@ -36,7 +36,7 @@ public class ProjectService {
         projectDao.updateByPrimaryKeySelective(project);
     }
 
-    public void deleteProject(Project project) {
-        projectDao.delete(project);
+    public void deleteProject(Integer projectId) {
+        projectDao.deleteByPrimaryKey(projectId);
     }
 }

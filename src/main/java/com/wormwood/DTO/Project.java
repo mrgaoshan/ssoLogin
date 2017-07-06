@@ -1,49 +1,78 @@
 package com.wormwood.DTO;
 
+import tk.mybatis.mapper.annotation.NameStyle;
+import tk.mybatis.mapper.code.Style;
+
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by Donnie on 2017/4/24.
  */
-public class Project {
-    private String id;
-    private String name;
-    private String link;
-    private String desc;
+@NameStyle(value = Style.camelhumpAndUppercase)
+public class Project implements Serializable {
+    private static final long serialVersionUID = -9150193155401406256L;
+    private String projectId;
+    private String projectName;
+    private String projectLink;
+    private String description;
+    private String projectType;
+    private String crtBy;
+    private Date crtOn;
 
-    public Project() {
-        super();
+    public String getProjectId() {
+        return projectId;
     }
 
-
-
-    public String getId() {
-        return id;
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public String getName() {
-        return name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getProjectLink() {
+        return projectLink;
     }
 
-    public String getLink() {
-        return link;
+    public void setProjectLink(String projectLink) {
+        this.projectLink = projectLink;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public String getDescription() {
+        return description;
     }
 
-    public String getDesc() {
-        return desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public String getProjectType() {
+        return projectType;
+    }
+
+    public void setProjectType(String projectType) {
+        this.projectType = projectType;
+    }
+
+    public String getCrtBy() {
+        return crtBy;
+    }
+
+    public void setCrtBy(String crtBy) {
+        this.crtBy = crtBy;
+    }
+
+    public Date getCrtOn() {
+        return crtOn;
+    }
+
+    public void setCrtOn(Date crtOn) {
+        this.crtOn = crtOn;
     }
 }

@@ -1,10 +1,10 @@
 /**
- * Created by kasimodo on 2017-01-10.
+ * Created by kasimodo on 2017-7-7.
  */
-/*document.write("<link rel='stylesheet' href='/vendors/bootstrap/dist/css/bootstrap.min.css'>");
- document.write("<script src='/vendors/jquery/dist/jquery.min.js'></script>");
- document.write("<script src='/vendors/bootstrap/dist/js/bootstrap.min.js'></script>");
- document.write("<script src='/js/notify/bootstrap-notify.min.js'></script>");*/
+document.write('<script src="/vendors/jquery/dist/jquery.min.js"></script>');
+document.write('<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>');
+document.write('<script src="/js/layout.js"></script>');
+
 
 function formToJson(formObj) {
     var o = {};

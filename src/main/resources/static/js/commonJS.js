@@ -1,15 +1,6 @@
 /**
  * Created by kasimodo on 2017-7-7.
  */
-document.write('<script src="/vendors/jquery/dist/jquery.min.js"></script>');
-document.write('<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>');
-document.write('<script src="/js/dialog/bootstrap-dialog.js"></script>');
-<!-- PNotify -->
-
-document.write('<script src="/vendors/pnotify/dist/pnotify.js"></script>');
-document.write(' <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>');
-document.write('<script src=" <script src="/vendors/pnotify/dist/pnotify.nonblock.js"></script>');
-
 
 function formToJson(formObj) {
     var o = {};

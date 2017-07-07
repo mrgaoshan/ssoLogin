@@ -69,7 +69,7 @@ public class ProjectController {
         Project project = projectService.findProjectById(id);
         Map<String, Object> model = Maps.newHashMap();
         model.put("data", project);
-        return new ModelAndView("/projectMgmt/editProject", model);
+        return new ModelAndView("projectMgmt/editProject", model);
     }
 
 

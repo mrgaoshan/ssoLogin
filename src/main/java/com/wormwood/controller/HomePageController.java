@@ -47,7 +47,7 @@ public class HomePageController {
         Map<String, Object> model = Maps.newHashMap();
         model.put("data", projectList);
         model.put("total", totalProject);
-        return new ModelAndView("/index", model);
+        return new ModelAndView("index", model);
     }
 
 

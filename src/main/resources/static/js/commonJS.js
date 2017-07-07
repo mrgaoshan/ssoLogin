@@ -3,8 +3,6 @@
  */
 document.write('<script src="/vendors/jquery/dist/jquery.min.js"></script>');
 document.write('<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>');
-document.write('<script src="/js/layout.js"></script>');
-
 
 function formToJson(formObj) {
     var o = {};

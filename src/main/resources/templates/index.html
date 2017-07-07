@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html layout:decorator="layout/layout">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -7,19 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Wormwood Project Management</title>
-
-    <script src="/js/commonCss.js"></script>
-    <script src="/js/commonJs.js"></script>
 </head>
 
-<body class="nav-md">
-<div class="container body">
-    <div class="main_container">
-        <div id="leftMenu"></div>
-        <div id="top_nav"></div>
-        <!-- page content -->
-        <div class="right_col" role="main">
+<body>
+
+<div class="right_col" role="main" layout:fragment="content">
             <!-- top tiles -->
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -114,12 +106,6 @@
             </div>
 
         </div>
-        <!-- /page content -->
-        <!-- footer content -->
-        <div id="loadFooter"></div>
-        <!-- /footer content -->
-    </div>
-</div>
 
 
 </body>

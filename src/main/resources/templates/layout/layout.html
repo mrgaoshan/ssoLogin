@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Wormwood Project Management</title>
+
+    <script src="/js/commonCss.js"></script>
+    <script src="/js/commonJs.js"></script>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:replace="layout/leftMenu :: leftMenu"></div>
+        <div th:replace="layout/top :: top"></div>
+        <div layout:fragment="content"></div>
+        <div th:replace="layout/footer :: footer"></div>
+    </div>
+</div>
+
+<!-- Custom Theme Scripts -->
+<script src="/js/custom.min.js"></script>
+</body>
+</html>

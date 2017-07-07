@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by kasimodo on 2017-07-06.
  */
-@Service
 public class ProjectService {
 
     @Autowired

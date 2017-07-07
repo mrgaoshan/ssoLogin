@@ -1,11 +1,14 @@
 package com.wormwood.config;
 
 import com.google.common.collect.Maps;
+import com.wormwood.DTO.Project;
+import com.wormwood.service.ProjectService;
 import com.wormwood.service.TokenService;
 import com.wormwood.util.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -17,13 +20,14 @@ import java.util.Map;
 public class AddHeaderFilter implements Filter {
     private final Logger log = LoggerFactory.getLogger(AddHeaderFilter.class);
 
-    private Map urlMaps;
-
     private TokenService tokenService;
 
-    public AddHeaderFilter(TokenService tokenService, Map map) {
+    private ProjectService projectService;
+
+
+    public AddHeaderFilter(TokenService tokenService, ProjectService projectService) {
         this.tokenService = tokenService;
-        this.urlMaps = map;
+        this.projectService = projectService;
     }
 
     @Override
@@ -33,24 +37,24 @@ public class AddHeaderFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String projName = request.getParameter("project");
+        String projectId = request.getParameter("projectId");
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.sendRedirect(getProjectUrl(projName));
+        httpServletResponse.sendRedirect(getProjectUrl(projectId));
     }
 
-    private String getProjectUrl(String projectName) {
+    private String getProjectUrl(String projectId) {
         Map<String, Object> map = Maps.newHashMap();
-        map.put(TokenUtil.CLAIM_KEY_SYSTEM, projectName);
+        map.put(TokenUtil.CLAIM_KEY_SYSTEM, projectId);
         map.put(TokenUtil.CLAIM_KEY_CREATED, new Date());
         String token = TokenUtil.generateToken(map);
         String ipAddress = "";
-        Map urlMaps = this.getUrlMaps();
-        if (urlMaps.containsKey(projectName)) {
-            ipAddress = (String) urlMaps.get(projectName) + "?ww_token=" + token;
+        Project project = projectService.findProjectById(Integer.valueOf(projectId));
+        if (null != project) {
+            ipAddress = project.getProjectLink() + "?ww_token=" + token;
         } else {
             return "error";
         }
-        tokenService.updateOrInsert(token, projectName);
+        tokenService.updateOrInsert(token, project.getProjectName());
         return ipAddress;
 
     }
@@ -61,11 +65,4 @@ public class AddHeaderFilter implements Filter {
 
     }
 
-    public Map getUrlMaps() {
-        return urlMaps;
-    }
-
-    public void setUrlMaps(Map urlMaps) {
-        this.urlMaps = urlMaps;
-    }
 }

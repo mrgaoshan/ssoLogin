@@ -2,7 +2,9 @@ package com.wormwood.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.wormwood.service.ProjectService;
 import com.wormwood.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -19,10 +21,14 @@ import java.util.Map;
 @Configuration
 @EnableConfigurationProperties(RedirectFilterConfig.RedirectProperties.class)
 public class RedirectFilterConfig {
+
     @Bean
     public TokenService tokenService() {
         return new TokenService();
     }
+
+    private @Autowired
+    ProjectService projectService;
 
     @Bean
     public FilterRegistrationBean filterRegistrationBean(RedirectProperties redirectProperties) {
@@ -32,7 +38,7 @@ public class RedirectFilterConfig {
         for (RedirectDetailProperties item : redirectProperties.getSystemdetail()) {
             map.put(item.getName(), item.getUrl());
         }
-        AddHeaderFilter addHeaderFilter = new AddHeaderFilter(tokenService(), map);
+        AddHeaderFilter addHeaderFilter = new AddHeaderFilter(tokenService(), projectService);
         registrationBean.setFilter(addHeaderFilter);
         registrationBean.setUrlPatterns(Lists.newArrayList("/toProject"));
         return registrationBean;

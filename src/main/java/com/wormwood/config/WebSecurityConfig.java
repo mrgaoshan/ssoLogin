@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf().disable()
                 .formLogin()
-                    .loginPage("/login").defaultSuccessUrl("/index", true).permitAll()
+                .loginPage("/login").defaultSuccessUrl("/index/m", true).permitAll()
                     .usernameParameter("ssoId").passwordParameter("ssoPassword")//.successHandler(new LoginSuccessHandler())
                     .permitAll()
                     .and()

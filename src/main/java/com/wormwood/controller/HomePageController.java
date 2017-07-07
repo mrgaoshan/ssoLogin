@@ -1,21 +1,24 @@
 package com.wormwood.controller;
 
+import com.google.common.collect.Maps;
+import com.wormwood.DTO.Project;
 import com.wormwood.DTO.User;
 
+import com.wormwood.service.ProjectService;
 import com.wormwood.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kasimodo on 2016-07-26.
@@ -29,14 +32,20 @@ public class HomePageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProjectService projectService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String rootPage() {
         return "redirect:/index";
     }
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
+    @RequestMapping(value = "/index/{type}", method = RequestMethod.GET)
+    public ModelAndView index(@PathVariable("type") String type) {
+        List<Project> projectList = projectService.findByProjectType(type);
+        Map<String, Object> model = Maps.newHashMap();
+        model.put("data", projectList);
+        return new ModelAndView("/index", model);
     }
 
 

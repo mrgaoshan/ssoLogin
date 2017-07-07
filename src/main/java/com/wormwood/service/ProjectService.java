@@ -42,4 +42,8 @@ public class ProjectService {
     public Project findProjectById(Integer projectId) {
         return projectDao.selectByPrimaryKey(projectId);
     }
+
+    public Integer findTotalProject() {
+        return projectDao.selectCount(new Project());
+    }
 }

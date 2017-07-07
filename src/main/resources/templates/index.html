@@ -16,11 +16,11 @@
             <div class="row tile_count">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total Projects</span>
-                    <div class="count">10</div>
+                    <div class="count" th:text="${total}">0</div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
                     <span class="count_top"><i class="fa fa-user"></i> Total New Projects</span>
-                    <div class="count">6</div>
+                    <div class="count" th:text="${total}">0</div>
                     <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>70% </i> From last Year</span>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -58,7 +58,8 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <h4><a th:href="@{/toProject(projectId=${project.projectId})}">Login in</a></h4>
+                            <h4><a class="btn btn-round btn-success"
+                                   th:href="@{/toProject(projectId=${project.projectId})}">Login in</a></h4>
 
                         </div>
                     </div>

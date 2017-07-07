@@ -42,9 +42,11 @@ public class HomePageController {
 
     @RequestMapping(value = "/index/{type}", method = RequestMethod.GET)
     public ModelAndView index(@PathVariable("type") String type) {
+        Integer totalProject = projectService.findTotalProject();
         List<Project> projectList = projectService.findByProjectType(type);
         Map<String, Object> model = Maps.newHashMap();
         model.put("data", projectList);
+        model.put("total", totalProject);
         return new ModelAndView("/index", model);
     }
 

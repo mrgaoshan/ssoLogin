@@ -20,10 +20,20 @@
                 data: JSON.stringify(formToJson($("#addProject-form"))),
                 success: function (data) {
                     if (!data.success) {
-                        alert(data.data);
+                        new PNotify({
+                            title: 'add Error',
+                            text: data.data,
+                            type: 'error',
+                            styling: 'bootstrap3'
+                        });
                     } else {
                         $("#btnsubmit").attr('disabled', 'disabled');
-                        alert("add success");
+                        new PNotify({
+                            title: 'Add Project Success',
+                            text: 'Add Project Success',
+                            type: 'success',
+                            styling: 'bootstrap3'
+                        });
                     }
                 }
             });

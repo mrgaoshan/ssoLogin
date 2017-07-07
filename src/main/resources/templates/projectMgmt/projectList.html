@@ -82,20 +82,34 @@
     });
 
     function editItem(projectId) {
-        alert(projectId);
+        window.location.href = "/project/getProjectById/" + projectId;
     }
 
     function removeProject(projectId) {
-        if (confirm("Confirm to remove this project?")) {
-            $.ajax({
-                url: "/project/removeProject/" + projectId,
-                type: "DELETE",
-                contentType: "application/json",
-                success: function (result) {
-                    window.location.reload();
+        BootstrapDialog.show({
+            title: 'confrim to delete',
+            message: 'confirm to delete this project ?',
+            buttons: [{
+                label: 'Confirm',
+                cssClass: 'btn-primary',
+                action: function (dialogItself) {
+                    $.ajax({
+                        url: "/project/removeProject/" + projectId,
+                        type: "DELETE",
+                        contentType: "application/json",
+                        success: function (result) {
+                            window.location.reload();
+                        }
+                    });
+                    dialogItself.close();
                 }
-            });
-        }
+            }, {
+                label: 'Cancel',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                }
+            }]
+        });
 
     }
 

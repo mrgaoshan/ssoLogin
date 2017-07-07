@@ -39,4 +39,8 @@ public class ProjectService {
     public void deleteProject(Integer projectId) {
         projectDao.deleteByPrimaryKey(projectId);
     }
+
+    public Project findProjectById(Integer projectId) {
+        return projectDao.selectByPrimaryKey(projectId);
+    }
 }

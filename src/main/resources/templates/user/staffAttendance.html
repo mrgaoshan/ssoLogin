@@ -12,7 +12,17 @@
 <body>
 
 <div class="right_col" role="main" layout:fragment="content">
-    
+
+    <div class="row tile_count">
+        <div class="col-md-3 xdisplay_inputx form-group has-feedback">
+            <input type="text" class="form-control has-feedback-left" id="selectDate" placeholder="Select Date"/>
+            <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+        </div>
+
+
+    </div>
+
+
     <div class="row">
 
 
@@ -66,6 +76,26 @@
 
 
     </div>
+
+    <script th:src="@{/js/moment/moment.min.js}"></script>
+    <script th:src="@{/js/datepicker/daterangepicker.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#selectDate').daterangepicker({
+                singleDatePicker: true,
+                calender_style: "picker_3",
+                format: 'YYYY/MM/DD',
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+            });
+
+            $('#selectDate').on('apply.daterangepicker', function (ev, picker) {
+                var date = picker.startDate.format('YYYY-MM-DD');
+                window.location.href = "/user/findAttendanceList?queryDate=" + date;
+            });
+        });
+
+    </script>
 
 </div>
 

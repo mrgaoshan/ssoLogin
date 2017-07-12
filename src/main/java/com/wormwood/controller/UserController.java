@@ -53,8 +53,8 @@ public class UserController extends DDBaseController {
     }
 
 
-    @RequestMapping(value = "/findAttendanceList/{queryDate}", method = RequestMethod.GET)
-    public ModelAndView findAttendanceList(@PathVariable("queryDate") String queryDate) {
+    @RequestMapping(value = "/findAttendanceList", method = RequestMethod.GET)
+    public ModelAndView findAttendanceList(@RequestParam(value = "queryDate", required = false) String queryDate) {
         Date date = new Date();
         if (StringUtils.isNotBlank(queryDate)) {
             date = DateUtil.parseDate(queryDate);

@@ -1,29 +1,83 @@
 package com.wormwood;
 
+import com.dingtalk.api.DefaultDingTalkClient;
+import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.CorpMessageCorpconversationAsyncsendRequest;
+import com.dingtalk.api.response.CorpMessageCorpconversationAsyncsendResponse;
+import com.taobao.api.ApiException;
+import com.wormwood.client.DingDingClient;
+import com.wormwood.helper.HttpHelper;
+import com.wormwood.vo.DDToken;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.io.File;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = SsoLoginApplication.class)
 @WebAppConfiguration
 public class SsoLoginApplicationTests {
 
-/*	@Test
-	public void contextLoads() {
-	}
+    @Autowired
+    private DingDingClient dingDingClient;
 
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
+    @Value("${dingding.corpid}")
+    private String corpid;
 
-	@Test
-	public void test() throws Exception {
+    @Value("${dignding.corpsecret}")
+    private String corpsecret;
 
-		// ‰øùÂ≠òÂ≠óÁ¨¶‰∏≤
-		stringRedisTemplate.opsForValue().set("aaa", "111");
-		Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
+    @Test
+    public void testSendMsg() throws ApiException {
 
-	}*/
+        DDToken token = dingDingClient.getToken(corpid, corpsecret);
+        DingTalkClient client = new DefaultDingTalkClient("https://eco.taobao.com/router/rest");
+        CorpMessageCorpconversationAsyncsendRequest req = new CorpMessageCorpconversationAsyncsendRequest();
+        req.setMsgtype("oa");
+        req.setAgentId(129141145L);
+        //req.setUseridList("45370562-1711009811,11111");
+        req.setDeptIdList("46251090");
+        req.setToAllUser(false);
+        req.setMsgcontentString("{\n" +
+                "    \"message_url\": \"http://wormwood.com.sg\",\n" +
+                "    \"head\": {\n" +
+                "        \"bgcolor\": \"FFBBBBBB\",\n" +
+                "        \"text\": \"π˙«Ï∑≈ºŸÕ®÷™\"\n" +
+                "    },\n" +
+                "    \"body\": {\n" +
+                "        \"title\": \"π˙«Ï∑≈ºŸÕ®÷™\",\n" +
+                "        \"form\": [\n" +
+                "            {\n" +
+                "                \"key\": \"∑≈ºŸ«¯”Ú:\",\n" +
+                "                \"value\": \"÷–π˙\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"key\": \"∑≈ºŸ ±º‰:\",\n" +
+                "                \"value\": \"2017-10-1 µΩ 2017-10-8\"\n" +
+                "            }\n" +
+                "        ],\n" +
+                "        \"content\": \"Happy Chinese National Day!\n \",\n" +
+                "        \"image\": \"@lADPBY0V4pL2s93NARTNAiY\",\n" +
+                //  "        \"file_count\": \"3\",\n" +
+                "        \"author\": \"wormwood admin \"\n" +
+                "    }\n" +
+                "}");
+        CorpMessageCorpconversationAsyncsendResponse rsp = client.execute(req, token.getAccess_token());
+        System.out.println(rsp.getBody());
+    }
 
+
+    @Test
+    public void testUploadFile() throws Exception {
+        DDToken token = dingDingClient.getToken(corpid, corpsecret);
+        String url = "https://oapi.dingtalk.com/media/upload?access_token=" + token.getAccess_token() + "&type=image";
+
+        File file = new File("C:\\Users\\kasimodo\\Desktop\\1.jpg");
+        HttpHelper.uploadMedia(url,file);
+    }
 }

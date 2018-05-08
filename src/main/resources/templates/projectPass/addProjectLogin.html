@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html layout:decorator="layout/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Wormwood Project Login Management</title>
+
+    <script>
+        function submitForm() {
+            var url = "/projectPass/addProjectLogin";
+            $.ajax({
+                type: 'post',
+                url: url,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(formToJson($("#addProjectLogin-form"))),
+                success: function (data) {
+                    if (!data.success) {
+                        new PNotify({
+                            title: 'add Error',
+                            text: data.data,
+                            type: 'error',
+                            styling: 'bootstrap3'
+                        });
+                    } else {
+                        $("#btnsubmit").attr('disabled', 'disabled');
+                        new PNotify({
+                            title: 'Add Project Pass Success',
+                            text: 'Add Project Pass Success',
+                            type: 'success',
+                            styling: 'bootstrap3'
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="right_col" role="main" layout:fragment="content">
+            <!-- /top tiles -->
+
+            <div class="row">
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Add Project Login</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <br/>
+                            <form id="addProjectLogin-form" class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Project Name</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="projectId" name="projectId" class="form-control"
+                                                required="required">
+                                            <option value="">Please Select..</option>
+                                            <option  th:each="projectlogin : ${data}" th:value="${projectlogin.projectId}" th:text="${projectlogin.projectName}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginName">Login
+                                        Name <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="loginName" name="loginName" required="required"
+                                               class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginPass">Login Password
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="loginPass" name="loginPass"
+                                               class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginRole">Login
+                                        Role
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="loginRole" name="loginRole"
+                                               class="form-control col-md-7 col-xs-12"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="desc" class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input id="desc" name="desc"
+                                               class="form-control col-md-7 col-xs-12" type="text"/>
+                                    </div>
+                                </div>
+
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <a href="/projectPass/toProjectLoginList" class="btn btn-primary">Cancel</a>
+                                        <button type="button" class="btn btn-success" id="btnsubmit"
+                                                onclick="submitForm()">Submit
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+</body>
+</html>

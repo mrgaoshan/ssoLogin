@@ -46,7 +46,7 @@
     <div class="row">
 
         <div class="col-md-4 col-sm-4 col-xs-12" th:each="project,projectStat : ${data}">
-                    <div class="x_panel tile fixed_height_320">
+                    <div class="x_panel tile ">
                         <div class="x_title">
                             <h2 th:text="${project.description}"></h2>
                             <ul class="nav navbar-right panel_toolbox">
@@ -66,7 +66,7 @@
                                     <label class="control-label col-md-7 col-xs-12" th:text="${project.projectLink}"/>
                                 </div>
                             </div>
-                                <div style="background: #f3f3f3;border-radius:3px;padding:7px;margin-bottom:5px">
+                                <div style="background: #f3f3f3;border-radius:3px;padding:7px;margin-bottom:5px;min-height: 200px">
                                 <table class="table">
                                     <thead>
                                     <tr>
@@ -76,7 +76,7 @@
                                         <th>Desc</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                     <tr th:each="loginItem : ${project.loginList}">
                                         <td th:text="${loginItem.loginName}"></td>
                                         <td th:text="${loginItem.loginPass}"></td>

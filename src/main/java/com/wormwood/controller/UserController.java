@@ -8,10 +8,7 @@ import com.wormwood.response.AttendanceResponse;
 import com.wormwood.response.Response;
 import com.wormwood.result.ResultEnum;
 import com.wormwood.util.DateUtil;
-import com.wormwood.vo.user.Attendance;
-import com.wormwood.vo.user.AttendanceListVO;
-import com.wormwood.vo.user.UserDetail;
-import com.wormwood.vo.user.UserListVO;
+import com.wormwood.vo.user.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +37,7 @@ public class UserController extends DDBaseController {
     @RequestMapping(value = "/findUserList", method = RequestMethod.GET)
     @ResponseBody
     public Response<UserListVO> findUserList() {
-        UserListVO userListVo = dingDingClient.findUserList(getToken().getAccess_token(), "1");
+        UserListVO userListVo = dingDingClient.findUserList(getToken().getAccess_token(),"zh_CN" ,46251090L,"100","100","entry_asc");
         if (userListVo.getErrcode() != 0) {
             return new Response<>(userListVo, ResultEnum.FAIL);
         }
@@ -115,6 +112,17 @@ public class UserController extends DDBaseController {
         }
         return false;
 
+    }
+
+
+    @RequestMapping(value = "/getAllDepIds", method = RequestMethod.GET)
+    @ResponseBody
+    public Response<DepList> getAllDepIds() {
+        DepList allDepIds = dingDingClient.getAllDepIds(getToken().getAccess_token(),"1");
+        if (allDepIds.getErrcode() != 0) {
+            return new Response<>(allDepIds, ResultEnum.FAIL);
+        }
+        return new Response<>(allDepIds, ResultEnum.SUCCESS);
     }
 
 }

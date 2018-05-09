@@ -5,8 +5,10 @@ import tk.mybatis.mapper.annotation.NameStyle;
 import tk.mybatis.mapper.code.Style;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Donnie on 2017/4/24.
@@ -25,6 +27,10 @@ public class Project implements Serializable {
     private String projectType;
     private String crtBy;
     private Date crtOn;
+
+    @Transient
+    private List<ProjectLogin> loginList;
+
 
     public Integer getProjectId() {
         return projectId;
@@ -80,5 +86,13 @@ public class Project implements Serializable {
 
     public void setCrtOn(Date crtOn) {
         this.crtOn = crtOn;
+    }
+
+    public List<ProjectLogin> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<ProjectLogin> loginList) {
+        this.loginList = loginList;
     }
 }

@@ -58,9 +58,40 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            <div class="form-horizontal form-label-left">
+                            <div class="form-group" style="background: #f3f3f3;border-radius:3px;padding:7px;margin-bottom:5px">
+                                <label class="control-label col-md-1 col-sm-1 col-xs-11">URL:
+                                </label>
+                                <div class="col-md-11 col-sm-11 col-xs-11">
+                                    <label class="control-label col-md-7 col-xs-12" th:text="${project.projectLink}"/>
+                                </div>
+                            </div>
+                                <div style="background: #f3f3f3;border-radius:3px;padding:7px;margin-bottom:5px">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Login Name</th>
+                                        <th>Password</th>
+                                        <th>Role</th>
+                                        <th>Desc</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="loginItem : ${project.loginList}">
+                                        <td th:text="${loginItem.loginName}"></td>
+                                        <td th:text="${loginItem.loginPass}"></td>
+                                        <td th:text="${loginItem.loginRole}"></td>
+                                        <td th:text="${loginItem.desc}"></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                                </div>
+
                             <h4><a class="btn btn-round btn-success"
                                    th:href="@{/toProject(projectId=${project.projectId})}">Login in</a></h4>
 
+                            </div>
                         </div>
                     </div>
                 </div>

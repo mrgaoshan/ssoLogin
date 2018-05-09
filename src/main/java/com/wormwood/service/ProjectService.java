@@ -21,9 +21,8 @@ public class ProjectService {
     }
 
     public List<Project> findByProjectType(String projectType) {
-        Example example = new Example(Project.class);
-        example.createCriteria().andCondition("project_type=", projectType);
-        List<Project> projects = projectDao.selectByExample(example);
+
+        List<Project> projects = projectDao.findByProjectType(projectType);
         return projects;
     }
 
